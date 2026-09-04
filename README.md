@@ -1,7 +1,5 @@
 ## SanChat WIP
 
----
-
 **SanChat is a simple open source discord-like messeneger that you can host for your friends**
 ---
 

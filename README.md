@@ -7,10 +7,10 @@ WIP
 
 SanChat supports:
 
-[x] text chat
+- [ ] text chat
 
-[ ] media 
+- [ ] media 
 
-[ ] voice/video chat
+- [ ] voice/video chat
 
-[ ] servers/groups
+- [ ] servers/groups

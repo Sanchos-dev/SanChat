@@ -15,8 +15,16 @@ async def main(page: ft.Page):
     page.title = "SanChat"
 
 async def init(page: ft.Page):
+    server_key_field_data = ""
     def handle_field_change(e: ft.Event[ft.TextField]):
-        print(e.control.value)
+        nonlocal server_key_field_data
+        server_key_field_data = e.control.value
+        if config.DEBUG:
+            print(e.control.value)
+            print(server_key_field_data)
+    def button_clicked(e: ft.Event[ft.Button]):
+    	if config.DEBUG:
+            print(f"button go inside clicked. server_key_field_data = {server_key_field_data}")
     page.title = "Welcome to SanChat"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
@@ -28,7 +36,8 @@ async def init(page: ft.Page):
             weight=ft.FontWeight.BOLD, 
             theme_style=ft.TextThemeStyle.DISPLAY_LARGE
         ),
-        ft.TextField(label="Server key input", hint_text="Server_key", on_change=handle_field_change, width=300)
+        ft.TextField(label="Server key input", hint_text="Server_key", on_change=handle_field_change, width=300),
+        ft.Button(content="Go inside!", on_click=button_clicked,)
     )
 
 async def start():

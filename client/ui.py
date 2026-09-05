@@ -23,6 +23,11 @@ async def login(page: ft.Page):
     async def log_clicked(e: ft.ControlEvent):
         login = login_field.value
         password = password_field.value
+        if client.login(login,password):
+            await main(page)
+        else:
+            print("shit")
+
     page.title = "SanChat login"
     page.clean()
     login_field = ft.TextField(
@@ -55,8 +60,10 @@ async def register(page: ft.Page):
                     login_exist.open = True
                     page.update()
             else:
-                client.re
-                await main(page)
+                if client.register(login, password):
+                    await main(page)
+                else:
+                    print("shit")
 
         else:
             if hasattr(page, "open"):

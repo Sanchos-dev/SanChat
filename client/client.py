@@ -19,11 +19,9 @@ def login(login, password):
 
 	return True
 
-
 def check_reg(login):
 
 	return False
-
 
 def register(login, password):
 

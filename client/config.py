@@ -4,5 +4,5 @@ server_domain = ''
 server_id = ''
 client_id = ''
 first_time = True
-server_key = ''
+server_key = 'фыв'
 logged_in = False

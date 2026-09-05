@@ -4,4 +4,4 @@ server_domain = ''
 server_id = ''
 client_id = ''
 first_time = True
-server_key = 'asdasd'
+server_key = 'bd-asdm0dfv'

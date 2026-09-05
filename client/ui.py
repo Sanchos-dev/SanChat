@@ -20,12 +20,51 @@ async def main(page: ft.Page):
 
 
 async def login(page: ft.Page):
+    async def log_clicked(e: ft.ControlEvent):
+        login = login_field.value
+        password = password_field.value
+
     page.clean()
+    login_field = ft.TextField(
+        label="Login", 
+        hint_text="login", 
+        width=300
+    )
+    password_field = ft.TextField(
+        label="Password", 
+        hint_text="password", 
+        width=300
+    )
+
+    page.add(login_field,password_field, ft.ElevatedButton("Login", on_click=log_clicked))
 
 
 
 async def register(page: ft.Page):
+    async def reg_clicked(e: ft.ControlEvent):
+        login = login_field.value
+        password = password_field.value
+        password_confirm = password_confirm_field.value
+
+
+
     page.clean()
+    login_field = ft.TextField(
+        label="Login", 
+        hint_text="login", 
+        width=300
+    )
+    password_field = ft.TextField(
+        label="Password", 
+        hint_text="password", 
+        width=300
+    )
+    password_confirm_field = ft.TextField(
+        label="Confirm password", 
+        hint_text="Confirm password", 
+        width=300
+    )
+    page.add(login_field,password_field,password_confirm_field,ft.ElevatedButton("Register", on_click=reg_clicked))
 
 
 
@@ -39,10 +78,12 @@ async def register(page: ft.Page):
 
 async def l_or_r(page: ft.Page):
     async def login_but(e: ft.ControlEvent):
+        await login(page)
         if config.DEBUG:
             print("login button clicked")
 
     async def register_but(e: ft.ControlEvent):
+        await register(page)
         if config.DEBUG:
             print("register button clicked")
 
@@ -111,7 +152,7 @@ async def init(page: ft.Page):
             theme_style=ft.TextThemeStyle.DISPLAY_LARGE
         ),
         server_key_field,
-        ft.ElevatedButton("Go inside!", on_click=button_clicked)
+        ft.ElevatedButton("Next", on_click=button_clicked)
     )
     page.update()
 

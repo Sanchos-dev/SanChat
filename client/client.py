@@ -14,3 +14,12 @@ def check_server_availability(key):
 		print(f"decoded server key: {decode_result}")
 	# here will be logic
 	return True
+
+def login(login, password):
+	pass
+
+def check_reg(login):
+	pass
+
+def register(login, password):
+	pass

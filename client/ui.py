@@ -23,7 +23,7 @@ async def login(page: ft.Page):
     async def log_clicked(e: ft.ControlEvent):
         login = login_field.value
         password = password_field.value
-
+    page.title = "SanChat login"
     page.clean()
     login_field = ft.TextField(
         label="Login", 
@@ -45,10 +45,38 @@ async def register(page: ft.Page):
         login = login_field.value
         password = password_field.value
         password_confirm = password_confirm_field.value
+        if password == password_confirm:
+            if client.check_reg(login): 
+                page.open(login_exist)
+                if hasattr(page, "open"):
+                    page.open(login_exist)
+                else:
+                    page.login_exist = login_exist
+                    login_exist.open = True
+                    page.update()
+            else:
+                client.re
+                await main(page)
 
-
-
+        else:
+            if hasattr(page, "open"):
+                page.open(password_dont_match)
+            else:
+                page.password_dont_match = password_dont_match
+                password_dont_match.open = True
+                page.update()
+    page.title = "SanChat register"
     page.clean()
+
+    login_exist = ft.AlertDialog(
+        title=ft.Text("This login alredy exists"),
+        content=ft.Text("This login alredy exists"),
+        )
+
+    password_dont_match = ft.AlertDialog(
+        title=ft.Text("Passwords dont match"),
+        content=ft.Text("Passwords dont match"),
+        )
     login_field = ft.TextField(
         label="Login", 
         hint_text="login", 

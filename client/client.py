@@ -16,10 +16,15 @@ def check_server_availability(key):
 	return True
 
 def login(login, password):
-	pass
+
+	return True
+
 
 def check_reg(login):
-	pass
+
+	return False
+
 
 def register(login, password):
-	pass
+
+	return True

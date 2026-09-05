@@ -14,17 +14,43 @@ async def save_config(inst, val):
 async def main(page: ft.Page):
     page.clean()
     page.title = "SanChat"
-
     page.vertical_alignment = ft.MainAxisAlignment.START
     page.horizontal_alignment = ft.CrossAxisAlignment.START
-    
-    page.add(ft.Text("Вы успешно вошли в чат!", size=20))
     page.update()
+
 
 async def login(page: ft.Page):
     page.clean()
-    page.title = "SanChat"
-    page.add(ft.Text("Вы успешно вошли в чат!", size=20))
+
+
+
+async def register(page: ft.Page):
+    page.clean()
+
+
+
+
+
+
+
+
+
+
+
+async def l_or_r(page: ft.Page):
+    async def login_but(e: ft.ControlEvent):
+        if config.DEBUG:
+            print("login button clicked")
+
+    async def register_but(e: ft.ControlEvent):
+        if config.DEBUG:
+            print("register button clicked")
+
+    page.clean()
+    page.title = "SanChat login/register"
+    page.add(ft.ElevatedButton("Login", on_click=login_but))
+    page.add(ft.ElevatedButton("Register", on_click=register_but))
+
     page.update()
 
 async def init(page: ft.Page):
@@ -60,7 +86,7 @@ async def init(page: ft.Page):
 
         if server_ok:
             await save_config("server_key", key)
-            await login(page)
+            await l_or_r(page)
         else:
 
             dialog = ft.AlertDialog(
@@ -88,6 +114,7 @@ async def init(page: ft.Page):
         ft.ElevatedButton("Go inside!", on_click=button_clicked)
     )
     page.update()
+
 async def start():
     if config.first_time:
         await ft.run_async(init)

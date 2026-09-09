@@ -1,5 +1,6 @@
-#SanChat server configuration 
 DEBUG = True
 server_api_port = 19840
-server_domain = "chat.example.com" #you can use ur domain here
-server_id = "" #leave empty if u want it random | sever_id needs to be unique
+server_domain = 'chat.example.com'
+server_id = ''
+pub_server_group = True
+pub_server_group_id = ''

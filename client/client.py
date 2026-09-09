@@ -16,10 +16,14 @@ def check_server_availability(key):
 	return True
 
 def login(login, password):
-
-	return True
+	if config.TESTING:
+		if login == "tester" and password == "12345":
+			return True
+		else:
+			return False
 
 def check_reg(login):
+
 
 	return False
 

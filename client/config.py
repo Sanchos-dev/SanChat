@@ -1,8 +1,10 @@
 DEBUG = True
+TESTING = True
 server_api_port = ''
 server_domain = ''
 server_id = ''
 client_id = ''
 first_time = True
-server_key = 'фыв'
+server_key = 'asd'
 logged_in = False
+SanChat_logo_path = 'https://flet.dev/img/logo.svg'

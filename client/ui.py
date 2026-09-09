@@ -11,11 +11,35 @@ async def save_config(inst, val):
             if not k.startswith("__"):
                 f.write(f"{k} = {repr(v)}\n")
 
+async def group(page: ft.Page ):
+    group_name = ""
+    page.clean()
+    page.title(f"Group: {group_name}")
+
+
+async def dm(page: ft.Page):
+    page.clean()
+
+
 async def main(page: ft.Page):
     page.clean()
-    page.title = "SanChat"
-    page.vertical_alignment = ft.MainAxisAlignment.START
-    page.horizontal_alignment = ft.CrossAxisAlignment.START
+    page.title = "SanChat main page"
+    c1 = ft.Container(
+        alignment=ft.Alignment.TOP_LEFT,
+        content = ft.Column(
+           alignment=ft.Alignment.TOP_LEFT,
+           width=55,
+           spacing=10,
+           controls=[
+               ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
+        ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
+        ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
+        ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
+        
+
+        ],
+    ))
+    page.add(c1)
     page.update()
 
 
@@ -26,7 +50,7 @@ async def login(page: ft.Page):
         if client.login(login,password):
             await main(page)
         else:
-            print("shit")
+            page.add(ft.Text("Login / Password isn't correct", size=16, italic = True ,weight=ft.FontWeight.W_600, color = ft.Colors.RED))
 
     page.title = "SanChat login"
     page.clean()

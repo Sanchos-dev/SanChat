@@ -1,6 +1,7 @@
 client/testing.py
 client/__pycache__
 client/cache
+client/testing.py
 server/testing.py
 server/__pycache__
 server/cache

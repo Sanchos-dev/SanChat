@@ -5,6 +5,6 @@ server_domain = ''
 server_id = ''
 client_id = ''
 first_time = True
-server_key = 'asd'
+server_key = ''
 logged_in = False
 SanChat_logo_path = 'https://flet.dev/img/logo.svg'

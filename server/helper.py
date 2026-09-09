@@ -39,6 +39,7 @@ def generate_server_code(): #ONE TIME RUN
 		if config.DEBUG:
 			print(f"generated server id: {base64_string}")
 		save_config("server_id", base64_string)
+		save_config("first_time", False)
 		return base64_string
 	else:
 		if config.DEBUG:

@@ -1,0 +1,12 @@
+{
+  "name": "USER_TST0",
+  "uid": "USER_TST0",
+  "height": 1.92,
+  "gender": "M",
+  "salary": 70000,
+  "married": true,
+  "messages": [
+    { "name": "Tom", "age": 9, "gender": "M" },
+    { "name": "Ava", "age": 7, "gender": "F" }
+  ]
+}

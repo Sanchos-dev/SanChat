@@ -1,12 +1,90 @@
 {
-  "name": "USER_TST0",
-  "uid": "USER_TST0",
-  "height": 1.92,
-  "gender": "M",
-  "salary": 70000,
-  "married": true,
+  "chat_id": "dm_72EGJZAFU02TKVW4AQDO",
+  "display_name": "USER_TST0",
+  "login": "ut0",
+  "description": "Test account ",
+  "uid": "72EGJZAFU02TKVW4AQDO",
+  "avatar_url": "https://picsum.photos/200",
+  "is_online": true,
+  "last_seen": "2026-09-10T17:20:00Z",
+  "is_typing": false,
+  "unread_count": 1,
   "messages": [
-    { "name": "Tom", "age": 9, "gender": "M" },
-    { "name": "Ava", "age": 7, "gender": "F" }
+    {
+      "id": "msg_001",
+      "sender_id": "72EGJZAFU02TKVW4AQDO",
+      "type": "text",
+      "content": "Hey! Are you testing the new message  layout?",
+      "created_at": "2026-09-10T16:50:00Z",
+      "status": "read"
+    },
+    {
+      "id": "msg_002",
+      "sender_id": "CURRENT_USER_UID",
+      "type": "text",
+      "content": "Yeah. Check out this image attachment:",
+      "created_at": "2026-09-10T16:51:12Z",
+      "status": "read"
+    },
+    {
+      "id": "msg_003",
+      "sender_id": "CURRENT_USER_UID",
+      "type": "image",
+      "content": "https://picsum.photos/800/600",
+      "metadata": {
+        "file_name": "screenshot.png",
+        "width": 800,
+        "height": 600,
+        "file_size": 245100
+      },
+      "created_at": "2026-09-10T16:51:15Z",
+      "status": "read"
+    },
+    {
+      "id": "msg_004",
+      "sender_id": "72EGJZAFU02TKVW4AQDO",
+      "type": "text",
+      "content": "Looks good! Does multiline rendering work?\nLike this line\nand another line below?",
+      "created_at": "2026-09-10T16:53:00Z",
+      "status": "read"
+    },
+    {
+      "id": "msg_005",
+      "sender_id": "CURRENT_USER_UID",
+      "type": "text",
+      "content": "Yes, line breaks are supported.",
+      "created_at": "2026-09-10T16:54:10Z",
+      "status": "read",
+      "reply_to": {
+        "id": "msg_004",
+        "sender_name": "USER_TST0",
+        "snippet": "Looks good! Does multiline..."
+      }
+    },
+    {
+      "id": "msg_006",
+      "sender_id": "72EGJZAFU02TKVW4AQDO",
+      "type": "text",
+      "content": "Testing_overflow_with_a_very_long_unbroken_string_that_will_break_the_bubble_width_if_overflow_wrap_is_missing",
+      "created_at": "2026-09-10T16:55:00Z",
+      "status": "read",
+      "is_edited": true
+    },
+    {
+      "id": "msg_007",
+      "sender_id": "CURRENT_USER_UID",
+      "type": "text",
+      "content": "Testing pending status indicator...",
+      "created_at": "2026-09-10T17:00:00Z",
+      "status": "sending"
+    },
+    {
+      "id": "msg_008",
+      "sender_id": "CURRENT_USER_UID",
+      "type": "text",
+      "content": "Testing error / failed to deliver state",
+      "created_at": "2026-09-10T17:01:00Z",
+      "status": "failed"
+    }
   ]
 }

@@ -14,21 +14,52 @@ def save_config(inst, val):
 
 def uid_generator(size=20, chars=string.ascii_uppercase + string.digits):
 	return ''.join(random.choice(chars) for _ in range(size))
-print(uid_generator())
-def make_user_data_first_time():
+
+def make_user_data_first_time(display_name, login,email,description,avatar_url,connected_server):
+	uid = uid_generator()
 
 	os.mkdir("udata")
+	os.mkdir(config.user_download_path)
 
-	UserData = {
-	  "name": "John",
-	  "age": 30,
-	  "city": "New York"
+	user_data = {
+	    "uid": uid,
+	    "login": login,
+	    "email": email,
+	    "display_name": display_name,
+	    "description": description,
+	    "avatar_url": avatar_url,
+	    "connected_server": connected_server,
+
+	    "settings": {
+	        "theme": "dark", 
+	        "language": "en",
+	        "notifications": {
+	            "sound_enabled": True,
+	            "desktop_alerts": True,
+	            "show_preview": True,
+	        },
+	        "privacy": {
+	            "show_online_status": True,
+	            "send_read_receipts": True,
+	        },
+	    },
+	    
+
+	    "chat_state": {
+	        "pinned_chats": [],
+	        "muted_chats": [],
+	        "archived_chats": [],
+	        "blocked_uids": [],
+	    },
+	    
+	    "device": {
+	        "platform": "desktop",
+	        "app_version": "0.0.1",
+	    },
 	}
 
-
-
 	with open("udata/UserData.json", "w") as ufile:
-		ufile.write("")
+		ufile.write(json.dumps(user_data))
 		ufile.close()
 	with open("udata/UserDM.json", "w") as udmfile:
 		udmfile.write("")
@@ -37,7 +68,6 @@ def make_user_data_first_time():
 		ugfile.write("")
 		ugfile.close()
 
-make_user_data_first_time()
 
 def decode_server_key(key):
 	key_bytes = key.encode("ascii")

@@ -8,5 +8,4 @@ server_key = ''
 pub_server_group_id = ''
 logged_in = False
 SanChat_logo_path = 'https://flet.dev/img/logo.svg'
-user_data_path = 'udata/'
 user_download_path = 'SC_downloads/'

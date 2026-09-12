@@ -24,23 +24,7 @@ async def dm(page: ft.Page):
 async def main(page: ft.Page):
     page.clean()
     page.title = "SanChat main page"
-    c1 = ft.Container(
-        alignment=ft.Alignment.TOP_LEFT,
-        content = ft.Column(
-           alignment=ft.Alignment.TOP_LEFT,
-           width=55,
-           spacing=10,
-           controls=[
-               ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
-        ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
-        ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
-        ft.Image(src = f"{config.SanChat_logo_path}", width = 50, height = 50),
-        
 
-        ],
-    ))
-    page.add(c1)
-    page.update()
 
 
 async def login(page: ft.Page):

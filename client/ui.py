@@ -26,6 +26,10 @@ async def main(page: ft.Page):
     page.title = "SanChat main page"
 
 
+async def reg_custom_prof(page: ft.Page):
+    page.clean()
+    page.title = "Custimise your profile"
+
 
 async def login(page: ft.Page):
     async def log_clicked(e: ft.ControlEvent):
@@ -69,7 +73,7 @@ async def register(page: ft.Page):
                     page.update()
             else:
                 if client.register(login, password):
-                    await main(page)
+                    await reg_custom_prof(page)
                 else:
                     print("shit")
 

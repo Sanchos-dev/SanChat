@@ -27,8 +27,47 @@ async def main(page: ft.Page):
 
 
 async def reg_custom_prof(page: ft.Page):
+    def handle_custom_btn_clck():
+        pass
+
+    def handle_avatar_change_btn():
+        pass
+
     page.clean()
     page.title = "Custimise your profile"
+    
+    disp_name_field = ft.TextField(
+        label="Profile name", 
+        hint_text="Display name", 
+        width=300
+    )
+    
+    description_field = ft.TextField(
+        label="Description", 
+        hint_text="Description", 
+        width=300
+    )
+
+    shesh = ft.Row(
+        controls=[
+            ft.TextButton(
+                text="Change avatar",
+                icon=ft.Icons.STAR_BORDER,
+                icon_color=ft.Colors.BLUE_300,
+                on_click=handle_avatar_change_btn,
+            ),
+            ft.TextButton(
+                text="Proceed",
+                on_click=handle_custom_btn_clck,
+            ),
+        ]
+    )
+
+    avatar = ft.CircleAvatar(
+        content=ft.Text("FF")
+    )
+
+    page.add(avatar, disp_name_field, description_field, shesh)
 
 
 async def login(page: ft.Page):

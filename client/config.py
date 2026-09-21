@@ -1,7 +1,7 @@
 DEBUG = True
 TESTING = True
-server_api_port = ''
-server_domain = ''
+server_api_port = '19840'
+server_domain = '127.0.0.1'
 client_id = ''
 first_time = True
 server_key = ''

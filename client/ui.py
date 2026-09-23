@@ -24,50 +24,49 @@ async def dm(page: ft.Page):
 async def main(page: ft.Page):
     page.clean()
     page.title = "SanChat main page"
+    import flet as ft
 
 
 async def reg_custom_prof(page: ft.Page):
-    def handle_custom_btn_clck():
+
+    async def handle_custom_btn_clck(e):
         pass
 
-    def handle_avatar_change_btn():
+    async def handle_avatar_change_btn(e):
         pass
 
     page.clean()
-    page.title = "Custimise your profile"
-    
+    page.title = "Customize your profile"
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    avatar = ft.CircleAvatar(
+        content=ft.Text("FF"),
+        radius=40,  
+    )
     disp_name_field = ft.TextField(
-        label="Profile name", 
-        hint_text="Display name", 
-        width=300
+        label="Profile name", hint_text="Display name", width=300
     )
-    
     description_field = ft.TextField(
-        label="Description", 
-        hint_text="Description", 
-        width=300
+        label="Description", hint_text="Description", width=300
     )
-
     shesh = ft.Row(
+        alignment=ft.MainAxisAlignment.CENTER, 
         controls=[
             ft.TextButton(
-                text="Change avatar",
+                content="Change avatar",
                 icon=ft.Icons.STAR_BORDER,
                 icon_color=ft.Colors.BLUE_300,
                 on_click=handle_avatar_change_btn,
             ),
             ft.TextButton(
-                text="Proceed",
+                content="Proceed",
                 on_click=handle_custom_btn_clck,
             ),
-        ]
-    )
-
-    avatar = ft.CircleAvatar(
-        content=ft.Text("FF")
+        ],
     )
 
     page.add(avatar, disp_name_field, description_field, shesh)
+
 
 
 async def login(page: ft.Page):

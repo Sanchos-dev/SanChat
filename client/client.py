@@ -251,3 +251,9 @@ def register(login_val, password_val):
 
     else:
         return False
+
+def upload_avatar(local_path):
+    pass
+
+def customize_profile(disp_name, local_avatar_path, description):
+    pass

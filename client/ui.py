@@ -24,24 +24,43 @@ async def dm(page: ft.Page):
 async def main(page: ft.Page):
     page.clean()
     page.title = "SanChat main page"
-    import flet as ft
+    
+
 
 
 async def reg_custom_prof(page: ft.Page):
-
-    async def handle_custom_btn_clck(e):
-        pass
+    avatar_local_path: str | None = None
+    file_picker = ft.FilePicker()
 
     async def handle_avatar_change_btn(e):
-        pass
+        nonlocal avatar_local_path
+        files = await file_picker.pick_files(
+            allowed_extensions=["png", "jpg", "jpeg", "webp"],
+            allow_multiple=False,
+        )
+
+        if files and len(files) > 0:
+            avatar_local_path = files[0].path
+            avatar.foreground_image_url = avatar_local_path
+            avatar.content = None
+            page.update()
+
+    async def handle_custom_btn_clck(e):
+        client.customize_profile(
+            disp_name_field.value,
+            avatar_local_path,
+            description_field.value,
+        )
+        await main(page)
 
     page.clean()
     page.title = "Customize your profile"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
+
     avatar = ft.CircleAvatar(
         content=ft.Text("FF"),
-        radius=40,  
+        radius=40,
     )
     disp_name_field = ft.TextField(
         label="Profile name", hint_text="Display name", width=300
@@ -49,8 +68,9 @@ async def reg_custom_prof(page: ft.Page):
     description_field = ft.TextField(
         label="Description", hint_text="Description", width=300
     )
+
     shesh = ft.Row(
-        alignment=ft.MainAxisAlignment.CENTER, 
+        alignment=ft.MainAxisAlignment.CENTER,
         controls=[
             ft.TextButton(
                 content="Change avatar",
@@ -66,7 +86,6 @@ async def reg_custom_prof(page: ft.Page):
     )
 
     page.add(avatar, disp_name_field, description_field, shesh)
-
 
 
 async def login(page: ft.Page):

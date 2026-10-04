@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse
 import helper
 from pydantic import BaseModel
 import uvicorn
+import random
 
 if config.first_time:
     helper.generate_server_code()
@@ -111,10 +112,27 @@ class MessageDTO(BaseModel):
 
 
 
-@app.post("/channels/messages")
+@app.post("/channels/send_msg")
 def send_message(msg: MessageDTO):
     print(f"Новое сообщение в канале {msg.channel_id}: {msg.text}")
     return {"id": 101, "status": "delivered", "text": msg.text}
+
+@app.post("/channels/check_msg")
+def check_msg(data: dict):
+    chat_id  = data.get("id")
+    last_client_msg = data.get("last_msg")
+    #here will be check on new messages based on last client recieved message
+    return {"new_messages": True} 
+
+@app.post("/channels/recv_msg_history")
+def recieve_messages_history(data: dict):
+    return {"messages": "nothing for now"} #here will be msgs
+
+@app.post("/channels/recv_new_msg")
+def recieve_new_messages(data: dict):
+    chat_id = data.get("id")
+    last_client_msg = data.get("last_msg")
+    return {"messages": "nothing for now"} 
 
 
 @app.post("/channels/create")

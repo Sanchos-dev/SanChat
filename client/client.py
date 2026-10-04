@@ -202,18 +202,19 @@ def check_server_availability(key):
 
 
 def login(login_val, password_val):
-    if config.TESTING and login_val == "tester" and password_val == "12345":
-        return True
-
     res = client.post(
         "/api/auth/login", {"login": login_val, "password": password_val}
     )
-    return res.get("status") == "ok"
+    if res.get("status") == "ok":
+        return True
+    else:
+        return False
 
 
 def check_reg(login_val):
     res = client.post("/api/auth/check_login", {"login": login_val})
-    return res.get("exists", False)
+    return bool(res.get("exists"))
+
 
 
 def register(login_val, password_val):

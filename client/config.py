@@ -4,8 +4,8 @@ server_api_port = '19840'
 server_domain = '127.0.0.1'
 client_id = ''
 first_time = True
-server_key = ''
-pub_server_group_id = ''
+server_key = 'eyAiZG9tYWluIjoiMTI3LjAuMC4xIiwgInBvcnQiOiIxOTg0MCIsICJwdWJfZ3JvdXAiOiJJT1dGUVZSRk5JQjgiIH0='
+pub_server_group_id = 'IOWFQVRFNIB8'
 logged_in = False
 SanChat_logo_path = 'https://flet.dev/img/logo.svg'
 user_download_path = 'SC_downloads/'

@@ -75,7 +75,6 @@ async def crypto_middleware(request: Request, call_next):
 
     response = await call_next(request)
 
-    # Шифрование исходящего ответа
     if response.status_code == 200 and "application/json" in response.headers.get(
         "content-type", ""
     ):
@@ -125,12 +124,22 @@ def create_channel(data: dict):
 
 @app.post("/api/auth/login")
 def auth_login(data: dict):
-    return {"status": "ok", "token": "dummy_token"}
+    exp_pwd = data.get("password")
+    pwd_hash = helper.hash_pwd(exp_pwd)
+    if helper.check_db_login(data.get("login"), pwd_hash):
+        return {"status": "ok", "token": "dummy_token"}
+    else:
+        return {"status": "bad"}   
+
 
 
 @app.post("/api/auth/check_login")
 def auth_check_login(data: dict):
-    return {"exists": False}
+    if helper.check_db_by_login(data.get("login")):
+        return {"exists": True}
+    else:
+        return {"exists": False}   
+
 
 
 @app.post("/api/auth/register")

@@ -3,6 +3,8 @@ import base64
 import config
 import random
 import string
+from hashlib import sha256
+
 
 def save_config(inst, val):
     setattr(config, inst, val)
@@ -46,3 +48,28 @@ def generate_server_code(): #ONE TIME RUN
 			print("SERVER ID ALREADY GENERATED SKIPPING..")
 		pass
 
+def hash_pwd(pw):
+	hzt = sha256(pw.encode('utf-8')).hexdigest()
+	return hzt
+
+def check_db_login(l , pass_hash):
+	if config.DEBUG:
+		#for testing it`s login tester and password test
+		if l == "tester" and pass_hash == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08":
+			return True
+		else:
+			pass
+			
+	else:
+		return False
+
+def check_db_by_login(l):
+	if config.DEBUG:
+		#for testing it`s login tester
+		if l == "tester":
+			return True
+		else:
+			pass
+			
+	else:
+		return False

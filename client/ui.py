@@ -94,69 +94,119 @@ async def login(page: ft.Page):
     page.add(login_field,password_field, ft.ElevatedButton("Login", on_click=log_clicked))
 
 
-
 async def register(page: ft.Page):
-    async def reg_clicked(e: ft.ControlEvent):
-        login = login_field.value
-        password = password_field.value
-        password_confirm = password_confirm_field.value
-        if password == password_confirm:
-            if client.check_reg(login): 
-                page.open(login_exist)
-                if hasattr(page, "open"):
-                    page.open(login_exist)
-                else:
-                    page.login_exist = login_exist
-                    login_exist.open = True
-                    page.update()
-            else:
-                if client.register(login, password):
-                    await reg_custom_prof(page)
-                else:
-                    print("shit")
-
-        else:
-            if hasattr(page, "open"):
-                page.open(password_dont_match)
-            else:
-                page.password_dont_match = password_dont_match
-                password_dont_match.open = True
-                page.update()
-    page.title = "SanChat register"
+    page.title = "SanChat Register"
     page.clean()
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-    login_exist = ft.AlertDialog(
-        title=ft.Text("This login alredy exists"),
-        content=ft.Text("This login alredy exists"),
-        )
+    def show_dialog(dlg: ft.AlertDialog):
+        if hasattr(page, "open"):
+            page.open(dlg)
+            page.update()  
+        else:
+            if dlg not in page.overlay:
+                page.overlay.append(dlg)
+            dlg.open = True
+            page.update()
 
-    password_dont_match = ft.AlertDialog(
-        title=ft.Text("Passwords dont match"),
-        content=ft.Text("Passwords dont match"),
-        )
+    def close_dialog(dlg: ft.AlertDialog):
+        if hasattr(page, "close"):
+            page.close(dlg)
+            page.update()
+        else:
+            dlg.open = False
+            page.update()
+
+    login_exist_dialog = ft.AlertDialog(
+        modal=True,
+        title=ft.Text("Registration Error"),
+        content=ft.Text("This login already exists."),
+        actions=[
+            ft.TextButton("OK", on_click=lambda e: close_dialog(login_exist_dialog))
+        ],
+    )
+
+    password_mismatch_dialog = ft.AlertDialog(
+        title=ft.Text("Error"),
+        content=ft.Text("Passwords do not match."),
+        actions=[
+            ft.TextButton("OK", on_click=lambda e: close_dialog(password_mismatch_dialog))
+        ],
+    )
+
+    general_error_dialog = ft.AlertDialog(
+        title=ft.Text("Error"),
+        content=ft.Text("Failed to register. Please try again later."),
+        actions=[
+            ft.TextButton("OK", on_click=lambda e: close_dialog(general_error_dialog))
+        ],
+    )
+
     login_field = ft.TextField(
-        label="Login", 
-        hint_text="login", 
-        width=300
+        label="Login",
+        hint_text="Enter your login",
+        width=300,
+        autofocus=True,
     )
     password_field = ft.TextField(
-        label="Password", 
-        hint_text="password", 
-        width=300
+        label="Password",
+        hint_text="Enter password",
+        password=True,
+        can_reveal_password=True,
+        width=300,
     )
     password_confirm_field = ft.TextField(
-        label="Confirm password", 
-        hint_text="Confirm password", 
-        width=300
+        label="Confirm Password",
+        hint_text="Re-enter password",
+        password=True,
+        can_reveal_password=True,
+        width=300,
     )
-    page.add(login_field,password_field,password_confirm_field,ft.ElevatedButton("Register", on_click=reg_clicked))
 
+    async def reg_clicked(e: ft.ControlEvent):
+        login = login_field.value.strip() if login_field.value else ""
+        password = password_field.value or ""
+        password_confirm = password_confirm_field.value or ""
 
+        if not login or not password:
+            page.snack_bar = ft.SnackBar(ft.Text("Please fill in all fields."))
+            page.snack_bar.open = True
+            page.update()
+            return
 
+        if password != password_confirm:
+            show_dialog(password_mismatch_dialog)
+            return
 
+        try:
+            user_exists = client.check_reg(login)
+        except Exception as err:
+           return
 
+        if user_exists:
+            show_dialog(login_exist_dialog)
+            return
 
+        success = client.register(login, password)
+        if success:
+            await reg_custom_prof(page)
+        else:
+            show_dialog(general_error_dialog)
 
+    form = ft.Column(
+        controls=[
+            ft.Text("Create an Account", size=24, weight=ft.FontWeight.BOLD),
+            login_field,
+            password_field,
+            password_confirm_field,
+            ft.ElevatedButton("Register", width=300, on_click=reg_clicked),
+        ],
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        spacing=15,
+    )
+
+    page.add(form)
 
 
 

@@ -1,7 +1,8 @@
 import asyncio
-import config
 import client
 import ui
+import config
+
 
 async def background_tasks():
    while True:

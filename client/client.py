@@ -4,7 +4,6 @@ import json
 import os
 import random
 import string
-import config
 from crypto import (
     decrypt_payload,
     derive_shared_aes_key,
@@ -12,6 +11,29 @@ from crypto import (
     generate_keypair,
 )
 import requests
+
+config_text = """
+DEBUG = True
+TESTING = True
+server_api_port = ''
+server_domain = ''
+client_id = ''
+first_time = True
+server_key = ''
+pub_server_group_id = ''
+logged_in = False
+SanChat_logo_path = 'https://flet.dev/img/logo.svg'
+user_download_path = 'SC_downloads/'
+"""
+
+if not os.path.exists("config.py"):
+    with open("config.py", "w+") as cf:
+        cf.write(config_text)
+else:
+    pass
+
+import config
+
 
 
 class SecureClient:
@@ -207,6 +229,8 @@ def login(login_val, password_val):
     )
     if res.get("status") == "ok":
         return True
+        save_config("logged_in", True)
+
     else:
         return False
 
@@ -221,4 +245,9 @@ def register(login_val, password_val):
     res = client.post(
         "/api/auth/register", {"login": login_val, "password": password_val}
     )
-    return res.get("status") == "ok"
+    if res.get("status") == "ok":
+        return True
+        save_config("logged_in", True)
+
+    else:
+        return False

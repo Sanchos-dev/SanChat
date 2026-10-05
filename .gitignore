@@ -10,4 +10,5 @@ server/api_test.py
 server/testing.py
 server/__pycache__/
 server/cache/
+server/data/
 TODO.md

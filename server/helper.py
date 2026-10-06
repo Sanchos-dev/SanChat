@@ -18,6 +18,9 @@ def group_id_generator(size=12, chars=string.ascii_uppercase + string.digits):
 	return ''.join(random.choice(chars) for _ in range(size))
 
 
+def user_id_generator(size=24, chars=string.ascii_uppercase + string.digits):
+	return ''.join(random.choice(chars) for _ in range(size))
+
 
 def generate_pub_server_group(): #ONE TIME RUN
 	if config.pub_server_group:
@@ -51,6 +54,11 @@ def generate_server_code(): #ONE TIME RUN
 def hash_pwd(pw):
 	hzt = sha256(pw.encode('utf-8')).hexdigest()
 	return hzt
+
+
+def check_db_user_exists(uid):
+	#here check db for uid
+	return False #no users with thus uid
 
 def check_db_login(l , pass_hash):
 	if config.DEBUG:

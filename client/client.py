@@ -11,6 +11,7 @@ from crypto import (
     generate_keypair,
 )
 import requests
+import sqlite3
 
 config_text = """
 DEBUG = True
@@ -29,9 +30,6 @@ user_download_path = 'SC_downloads/'
 if not os.path.exists("config.py"):
     with open("config.py", "w+") as cf:
         cf.write(config_text)
-else:
-    pass
-
 import config
 
 
@@ -100,7 +98,7 @@ class SecureClient:
 
         if response.status_code == 401 and not _retry:
             if config.DEBUG:
-                print("[!] Сессия устарела. Переподключение и повтор запроса...")
+                print("[!] OLD SESSION. RECONNECTING")
             self._handshake()
             return self._request(
                 method, endpoint, json_data=json_data, _retry=True, **kwargs
@@ -140,17 +138,13 @@ def save_config(inst, val):
                 f.write(f"{k} = {repr(v)}\n")
 
 
-def uid_generator(size=20, chars=string.ascii_uppercase + string.digits):
-    return "".join(random.choice(chars) for _ in range(size))
-
-
 def make_user_data_first_time(display_name, login, email, description, avatar_url, connected_server):
-    uid = uid_generator()
+    
     os.makedirs("udata", exist_ok=True)
     os.makedirs(config.user_download_path, exist_ok=True)
 
     user_data = {
-        "uid": uid,
+        "uid": "",
         "login": login,
         "email": email,
         "display_name": display_name,
@@ -184,10 +178,9 @@ def make_user_data_first_time(display_name, login, email, description, avatar_ur
 
     with open("udata/UserData.json", "w", encoding="utf-8") as ufile:
         ufile.write(json.dumps(user_data))
-    with open("udata/UserDM.json", "w", encoding="utf-8") as udmfile:
-        udmfile.write("[]")
-    with open("udata/UserGroups.json", "w", encoding="utf-8") as ugfile:
-        ugfile.write("[]")
+    with open("udata/usersession.dat", "w", encoding="utf-8") as usfile:
+        usfile.write("")
+
 
 
 def decode_server_key(key):

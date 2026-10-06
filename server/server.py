@@ -126,6 +126,9 @@ def check_msg(data: dict):
 
 @app.post("/channels/recv_msg_history")
 def recieve_messages_history(data: dict):
+    chat_id = data.get("id")
+    howmany  = data.get("howmany")
+    end_msg = data.get("end_msg") # it will recieve msg id. or "idk" if it is the first time and client dont now how many messages is there
     return {"messages": "nothing for now"} #here will be msgs
 
 @app.post("/channels/recv_new_msg")
@@ -162,7 +165,14 @@ def auth_check_login(data: dict):
 
 @app.post("/api/auth/register")
 def auth_register(data: dict):
-    return {"status": "ok"}
+    while True:
+        uid = helper.user_id_generator()
+        if not helper.check_db_user_exists(uid):
+            return {"status": "ok", "uid" : uid}
+            break
+        else:
+            pass
+
 
 
 if __name__ == "__main__":
